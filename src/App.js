@@ -22,23 +22,23 @@ class App extends Component {
         this.gameState.board[box.dataset.square] = this.gameState.change
         box.innerHTML = this.gameState.change
         
-        this.gameState.change = this.gameState.change == 'X' ? 'O' : 'X'
+        this.gameState.change = this.gameState.change === 'X' ? 'O' : 'X'
         this.gameState.totalMoves++;
     }
     let result = this.checkWinner();
-    if(result == 'X'){
+    if(result === 'X'){
       this.gameState.end = true;
       this.setState({
         winner: 'X',
         textResult: 'Match won by X'
       })
-    } else if(result == 'O'){
+    } else if(result === 'O'){
       this.gameState.end = true;
       this.setState({
         winner: 'O',
         textResult: 'Match won by O'
       })
-    } else if(result == 'draw'){
+    } else if(result === 'draw'){
       this.gameState.end = true;
       this.setState({
         winner: 'draw',
@@ -46,12 +46,12 @@ class App extends Component {
       })
     }
 
-    if(this.gameState.change == 'O' && !this.gameState.end){
+    if(this.gameState.change === 'O' && !this.gameState.end){
       this.gameState.gameLocked = true;
       setTimeout(() => {
         do {
           var random1 = Math.floor(Math.random()*9);
-        } while (this.gameState.board[random1] != '')
+        } while (this.gameState.board[random1] !== '')
         this.gameState.gameLocked = false;
         this.handleClick(document.querySelectorAll('.square')[random1])
       },1000)
@@ -71,7 +71,7 @@ class App extends Component {
     ];
     let board = this.gameState.board;
     for(let i=0; i<moves.length; i++){
-      if(board[moves[i][0]] == board[moves[i][1]] && board[moves[i][1]] == board[moves[i][2]]){
+      if(board[moves[i][0]] === board[moves[i][1]] && board[moves[i][1]] === board[moves[i][2]]){
         return board[moves[i][0]]
       }
     }
